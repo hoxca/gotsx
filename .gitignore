@@ -1,0 +1,4 @@
+bin/
+.git
+pkg/
+.DS_Store
