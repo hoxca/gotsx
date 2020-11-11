@@ -82,7 +82,7 @@ test-coverage: fmt lint test-coverage-tools ; $(info $(M) running coverage tests
 	$Q $(GOCOV) convert $(COVERAGE_PROFILE) | $(GOCOVXML) > $(COVERAGE_XML)
 
 .PHONY: lint
-lint: | $(GOLINT) ; $(info $(M) running golint…) @ ## Run golint
+lint: | $(GOLINT) ; $(info $(M) running golint…  $Q $(GOLINT) -set_exit_status $(PKGS)) @ ## Run golint
 	$Q $(GOLINT) -set_exit_status $(PKGS)
 
 .PHONY: fmt
