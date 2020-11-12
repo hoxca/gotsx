@@ -2,4 +2,5 @@ bin/
 .git
 pkg/
 gotsx
+gotsx.go
 .DS_Store
