@@ -2,20 +2,6 @@
 // for Software Bisque TheSkyX javascript API
 package tsxcommand
 
-const statusCommand = `
-	  /* Java Script */
-	  var Out;
-
-		if (sky6RASCOMTele.IsConnected==0) {
-		  Out = 'Mount is not connected';
-		} else {
-		  if (sky6RASCOMTele.IsParked()) {
-			  Out = 'Mount is parked';
-      } else {
-			  Out = 'Mount is not parked';
-			}
-		}`
-
 // IsMountConnected javascript function
 const IsMountConnected = `
    /* Java Script */
@@ -97,6 +83,24 @@ const IsCoolerOff = `
      Reg = (ccdsoftCamera.RegulateTemperature == 1) ? "On":"Off"
    	Out = "Nope!, Cooler power: "+ccdsoftCamera.ThermalElectricCoolerPower+"% Regulation: "+Reg
    }`
+
+// GetCameraCoolerPower javascript function
+const GetCameraCoolerPower = `
+   /* Java Script */
+   var Out;
+   Out = ccdsoftCamera.ThermalElectricCoolerPower`
+
+// GetCameraCoolerTemperature javascript function
+const GetCameraCoolerTemperature = `
+   /* Java Script */
+   var Out;
+   Out = ccdsoftCamera.Temperature`
+
+// GetCameraCoolerTemperatureSetPoint javascript function
+const GetCameraCoolerTemperatureSetPoint = `
+   /* Java Script */
+   var Out;
+   Out = ccdsoftCamera.TemperatureSetPoint`
 
 // ParkAndDisconnectCommand javascript function
 const ParkAndDisconnectCommand = `
