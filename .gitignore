@@ -1,4 +1,5 @@
 bin/
 .git
 pkg/
+gotsx
 .DS_Store
