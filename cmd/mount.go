@@ -26,18 +26,20 @@ import (
 
 // mountCmd represents the mount command
 var mountCmd = &cobra.Command{
-	Use:   "mount",
-	Short: "A brief description of your command",
-	Args:  cobra.MinimumNArgs(1),
+	Use:       "mount",
+	Short:     "command to get mount status informations",
+	Args:      cobra.OnlyValidArgs,
+	ValidArgs: []string{"atParkPosition", "getPosition", "isConnected", "isParked", "isStopped", "isTracking", "parkAndDisconnect"},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("mount called")
+		fmt.Println("Command take at least one sub command\n")
+		cmd.Help()
 	},
 }
 
 // isStoppedCmd represents the isStopped command
 var isStoppedCmd = &cobra.Command{
 	Use:   "isStopped",
-	Short: "A brief description of your command",
+	Short: "verify that the mount is stopped",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountStopped, "Is mount Stopped ?")
 	},
@@ -46,7 +48,7 @@ var isStoppedCmd = &cobra.Command{
 // isConnectedCmd represents the isConnected command
 var isConnectedCmd = &cobra.Command{
 	Use:   "isConnected",
-	Short: "A brief description of your command",
+	Short: "verify that mount is connected in theSkyX",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountConnected, "Is mount Connected ?")
 	},
@@ -55,7 +57,7 @@ var isConnectedCmd = &cobra.Command{
 // isParkedCmd represents the isParked command
 var isParkedCmd = &cobra.Command{
 	Use:   "isParked",
-	Short: "A brief description of your command",
+	Short: "verify that the mount is parked",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountParked, "Is mount Parked ?")
 	},
@@ -64,7 +66,7 @@ var isParkedCmd = &cobra.Command{
 // isTrackingCmd represents the isTracking command
 var isTrackingCmd = &cobra.Command{
 	Use:   "isTracking",
-	Short: "A brief description of your command",
+	Short: "verify that the mount is in sideral tracking",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountTracking, "Is mount Tracking ?")
 	},
@@ -73,7 +75,7 @@ var isTrackingCmd = &cobra.Command{
 // atParkPositionCmd represents the atParkPosition command
 var atParkPositionCmd = &cobra.Command{
 	Use:   "atParkPosition",
-	Short: "A brief description of your command",
+	Short: "check that the AstroPhysics mount is at park1 position or parked",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountAtPark, "Is mount at Park1 position ?")
 	},
@@ -82,7 +84,7 @@ var atParkPositionCmd = &cobra.Command{
 // getPositionCmd represents the getPosition command
 var getPositionCmd = &cobra.Command{
 	Use:   "getPosition",
-	Short: "A brief description of your command",
+	Short: "get current Alt/Az position of the mount",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.GetMountPosition, "Get mount alt/az position: ")
 	},
@@ -91,7 +93,7 @@ var getPositionCmd = &cobra.Command{
 // parkAndDisconnectCmd represents the parkAndDisconnect command
 var parkAndDisconnectCmd = &cobra.Command{
 	Use:   "parkAndDisconnect",
-	Short: "A brief description of your command",
+	Short: "should diconnect the mount from theSkyX (removed implementation)",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("parkAndDisconnect called")
 	},

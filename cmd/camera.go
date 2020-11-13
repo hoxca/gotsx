@@ -26,18 +26,20 @@ import (
 
 // cameraCmd represents the camera command
 var cameraCmd = &cobra.Command{
-	Use:   "camera",
-	Short: "A brief description of your command",
-	Args:  cobra.MinimumNArgs(1),
+	Use:       "camera",
+	Short:     "command to get camera status informations",
+	Args:      cobra.OnlyValidArgs,
+	ValidArgs: []string{"getCoolerPower", "getCoolerStatus", "getTemperature", "getTemperatureSetPoint", "isCoolerOff"},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("camera called")
+		fmt.Println("command take at least one subcommand\n")
+		cmd.Help()
 	},
 }
 
 // getCoolerPowerCmd represents the getCoolerPower command
 var getCoolerPowerCmd = &cobra.Command{
 	Use:   "getCoolerPower",
-	Short: "A brief description of your command",
+	Short: "get the cooler power in percentage",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraCoolerPower, "Get camera cooler power ?")
 	},
@@ -46,7 +48,7 @@ var getCoolerPowerCmd = &cobra.Command{
 // getCoolerStatusCmd represents the getCoolerStatus command
 var getCoolerStatusCmd = &cobra.Command{
 	Use:   "getCoolerStatus",
-	Short: "A brief description of your command",
+	Short: "get information from the camera cooler",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraCoolerStatus, "Get camera cooler status ?")
 	},
@@ -55,7 +57,7 @@ var getCoolerStatusCmd = &cobra.Command{
 // getTemperatureCmd represents the getTemperature command
 var getTemperatureCmd = &cobra.Command{
 	Use:   "getTemperature",
-	Short: "A brief description of your command",
+	Short: "current temperature of the ccd camera",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraTemperature, "Get camera temperature ?")
 	},
@@ -64,7 +66,7 @@ var getTemperatureCmd = &cobra.Command{
 // getTemperatureSetPointCmd represents the getTemperatureSetPoint command
 var getTemperatureSetPointCmd = &cobra.Command{
 	Use:   "getTemperatureSetPoint",
-	Short: "A brief description of your command",
+	Short: "target temperature for the camera",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraTemperatureSetPoint, "Get camera temperature set point ?")
 	},
@@ -73,7 +75,7 @@ var getTemperatureSetPointCmd = &cobra.Command{
 // isCoolerOffCmd represents the isCoolerOff command
 var isCoolerOffCmd = &cobra.Command{
 	Use:   "isCoolerOff",
-	Short: "A brief description of your command",
+	Short: "verify if camera warmup end and regulation is off",
 	Run: func(cmd *cobra.Command, args []string) {
 		Ret = tsxcommand.Send(Tsx, tsxcommand.IsCoolerOff, "Is camera temperature regulation stopped ?")
 	},
