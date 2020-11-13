@@ -90,17 +90,17 @@ const GetCameraCoolerPower = `
    var Out;
    Out = ccdsoftCamera.ThermalElectricCoolerPower`
 
-// GetCameraCoolerTemperature javascript function
-const GetCameraCoolerTemperature = `
+// GetCameraTemperature javascript function
+const GetCameraTemperature = `
    /* Java Script */
    var Out;
    Out = ccdsoftCamera.Temperature`
 
-// GetCameraCoolerTemperatureSetPoint javascript function
-const GetCameraCoolerTemperatureSetPoint = `
+// GetCameraTemperatureSetPoint javascript function
+const GetCameraTemperatureSetPoint = `
    /* Java Script */
    var Out;
-   Out = ccdsoftCamera.TemperatureSetPoint`
+   Out = Math.round(ccdsoftCamera.TemperatureSetPoint)`
 
 // ParkAndDisconnectCommand javascript function
 const ParkAndDisconnectCommand = `
