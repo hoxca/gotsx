@@ -19,6 +19,7 @@ package cmd
 
 import (
 	"fmt"
+	"gotsx/tsxcommand"
 
 	"github.com/spf13/cobra"
 )
@@ -27,6 +28,7 @@ import (
 var cameraCmd = &cobra.Command{
 	Use:   "camera",
 	Short: "A brief description of your command",
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("camera called")
 	},
@@ -37,7 +39,7 @@ var getCoolerPowerCmd = &cobra.Command{
 	Use:   "getCoolerPower",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("getCoolerPower called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraCoolerPower, "Get camera cooler power ?")
 	},
 }
 
@@ -46,7 +48,7 @@ var getCoolerStatusCmd = &cobra.Command{
 	Use:   "getCoolerStatus",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("getCoolerStatus called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraCoolerStatus, "Get camera cooler status ?")
 	},
 }
 
@@ -55,7 +57,7 @@ var getTemperatureCmd = &cobra.Command{
 	Use:   "getTemperature",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("getTemperature called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraTemperature, "Get camera temperature ?")
 	},
 }
 
@@ -64,7 +66,7 @@ var getTemperatureSetPointCmd = &cobra.Command{
 	Use:   "getTemperatureSetPoint",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("getTemperatureSetPoint called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.GetCameraTemperatureSetPoint, "Get camera temperature set point ?")
 	},
 }
 
@@ -73,7 +75,7 @@ var isCoolerOffCmd = &cobra.Command{
 	Use:   "isCoolerOff",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("isCoolerOff called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsCoolerOff, "Is camera temperature regulation stopped ?")
 	},
 }
 
