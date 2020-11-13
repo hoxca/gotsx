@@ -19,6 +19,7 @@ package cmd
 
 import (
 	"fmt"
+	"gotsx/tsxcommand"
 
 	"github.com/spf13/cobra"
 )
@@ -27,6 +28,7 @@ import (
 var mountCmd = &cobra.Command{
 	Use:   "mount",
 	Short: "A brief description of your command",
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("mount called")
 	},
@@ -37,7 +39,7 @@ var isStoppedCmd = &cobra.Command{
 	Use:   "isStopped",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("isStopped called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountStopped, "Is mount Stopped ?")
 	},
 }
 
@@ -46,7 +48,7 @@ var isConnectedCmd = &cobra.Command{
 	Use:   "isConnected",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("isConnected called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountConnected, "Is mount Connected ?")
 	},
 }
 
@@ -55,7 +57,7 @@ var isParkedCmd = &cobra.Command{
 	Use:   "isParked",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("isParked called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountParked, "Is mount Parked ?")
 	},
 }
 
@@ -64,7 +66,7 @@ var isTrackingCmd = &cobra.Command{
 	Use:   "isTracking",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("isTracking called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountTracking, "Is mount Tracking ?")
 	},
 }
 
@@ -73,7 +75,7 @@ var atParkPositionCmd = &cobra.Command{
 	Use:   "atParkPosition",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("atParkPosition called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountAtPark, "Is mount at Park1 position ?")
 	},
 }
 
@@ -82,7 +84,7 @@ var getPositionCmd = &cobra.Command{
 	Use:   "getPosition",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("getPosition called")
+		Ret = tsxcommand.Send(Tsx, tsxcommand.GetMountPosition, "Get mount alt/az position: ")
 	},
 }
 
