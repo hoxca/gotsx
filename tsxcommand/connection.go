@@ -17,9 +17,12 @@ type TsxServer struct {
 func Send(tsx TsxServer, cmd string, cmdName string) string {
 
 	// connect to this socket
+
 	srv := fmt.Sprintf("%s:%d", tsx.Addr, tsx.Port)
 	conn, err := net.Dial("tcp", srv)
 	if err != nil {
+		fmt.Printf("Try tcp to server: %s\n", srv)
+		fmt.Printf("error: %s\n", err)
 		panic("We have no connection !")
 	}
 	defer conn.Close()
