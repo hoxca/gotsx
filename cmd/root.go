@@ -23,6 +23,7 @@ import (
 	"os"
 	"path/filepath"
 
+	Log "github.com/apatters/go-conlog"
 	"github.com/spf13/cobra"
 
 	"github.com/spf13/viper"
@@ -30,26 +31,39 @@ import (
 	"gotsx/tsxcommand"
 )
 
+//Tsx server config
+var Tsx tsxcommand.TsxServer
+
 var (
+	//Ret used for function return
+	Ret             string
 	cfgFile         string
 	tsxAddress      string
 	tsxPort         int
 	cfgFileNotFound = false
+	verbosity       = "warn"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "gotsx",
 	Short: "A simple go program to get status from TheSkyX",
-	Run: func(cmd *cobra.Command, args []string) {
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 
-		tsx := tsxcommand.TsxServer{
+		Tsx = tsxcommand.TsxServer{
 			Addr: tsxAddress,
 			Port: tsxPort,
 		}
+		Log.Debug("Server: %s", Tsx.Addr)
+		Log.Debug("Port: %s", Tsx.Port)
 
-		ret := tsxcommand.Send(tsx, tsxcommand.IsMountAtPark, "Is mount at Park1 position ?")
-		fmt.Println(ret)
+	},
+	PersistentPostRun: func(cmd *cobra.Command, args []string) {
+		fmt.Println(Ret)
+	},
+	Run: func(cmd *cobra.Command, args []string) {
+
+		Ret = tsxcommand.Send(Tsx, tsxcommand.IsMountAtPark, "Is mount at Park1 position ?")
 
 	},
 }
@@ -66,10 +80,14 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is conf/gotsx.yaml)")
+
 }
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+
+	setUpLogs()
+
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
@@ -80,9 +98,12 @@ func initConfig() {
 			log.Fatal(err)
 		}
 		confdir := fmt.Sprintf("%s/conf", dir)
-		// Search yaml config file in program path with name "achille.yaml".
-		viper.AddConfigPath(dir)
+		// we came from bin directory
+		confdir1 := fmt.Sprintf("%s/../conf", dir)
+		// Search yaml config file in program path with name "gotsx.yaml".
 		viper.AddConfigPath(confdir)
+		viper.AddConfigPath(confdir1)
+		viper.AddConfigPath(dir)
 		viper.SetConfigType("yaml")
 		viper.SetConfigName("gotsx")
 	}
@@ -90,20 +111,39 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			cfgFileNotFound = true
 			fmt.Println("Config file not found")
 		} else {
-			fmt.Println("Something look strange")
-			fmt.Printf("error: %v\n", err)
+			Log.Debug("Something look strange")
+			Log.Debugf("error: %v\n", err)
 		}
 	} else {
-		fmt.Printf("Using config file: %s\n", viper.ConfigFileUsed())
+		Log.Debugf("Using config file: %s\n", viper.ConfigFileUsed())
 	}
 
 	manageDefault()
+}
+
+func setUpLogs() {
+
+	formatter := Log.NewStdFormatter()
+	formatter.Options.LogLevelFmt = Log.LogLevelFormatLongTitle
+	Log.SetFormatter(formatter)
+	switch verbosity {
+	case "debug":
+		Log.SetLevel(Log.DebugLevel)
+	case "info":
+		Log.SetLevel(Log.InfoLevel)
+	case "warn":
+		Log.SetLevel(Log.WarnLevel)
+	case "error":
+		Log.SetLevel(Log.ErrorLevel)
+	default:
+		Log.SetLevel(Log.WarnLevel)
+	}
+
 }
 
 func manageDefault() {
