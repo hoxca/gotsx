@@ -9,7 +9,7 @@ const IsMountConnected = `
 
    if (sky6RASCOMTele.IsConnected != 0) {
    	Out = 'OK, Mount is connected';
-   }`
+   } else { Out = 'Nope!' }`
 
 // IsMountParked javascript function
 const IsMountParked = `
@@ -18,7 +18,7 @@ const IsMountParked = `
 
    if (sky6RASCOMTele.IsParked()) {
       Out = 'OK, Mount is parked';
-   }`
+   } else { Out = 'Nope!' }`
 
 // IsMountAtPark javascript function
 const IsMountAtPark = `
@@ -45,7 +45,7 @@ const IsMountTracking = `
 
    if (sky6RASCOMTele.IsTracking != 0)  {
    	Out = 'OK, Mount is tracking'
-   }`
+   } else { Out = 'Nope!' }`
 
 // IsMountStopped javascript function
 const IsMountStopped = `
@@ -54,7 +54,7 @@ const IsMountStopped = `
 
    if (sky6RASCOMTele.IsTracking == 0 || sky6RASCOMTele.IsParked())  {
    	Out = 'OK, Mount is stopped'
-   }`
+   } else { Out = 'Nope!' }`
 
 // GetMountPosition javascript function
 const GetMountPosition = `
